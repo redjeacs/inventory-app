@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/styles.css" />
+    <title><%= title %></title>
+  </head>
+  <body>
+    <%-include(partials/navbar) %>
+    <div class="container">
+      <h1>Welcome to GameStop</h1>
+      <p class="message">
+        Video game enthusiasts greatest companion! Your only stop to acquire any
+        video games!
+      </p>
+      <div class="links">
+        <a href="/games"><p class="link-title">Games</p></a>
+        <a href="/genres"><p class="link-title">Genres</p></a>
+      </div>
+    </div>
+    <%-include(partials/footer) %>
+  </body>
+</html>
