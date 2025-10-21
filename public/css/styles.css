@@ -1,7 +1,22 @@
 @import url(https://fonts.googleapis.com/css?family=Open+Sans);
 
+*,
+*::before,
+*::after {
+  line-height: 1.6rem;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
 html {
   height: 100%;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  width: 100vw;
 }
 
 nav {
@@ -49,4 +64,16 @@ nav ul li a:hover {
     inset 0 0 1px rgba(255, 255, 255, 0.6);
   background: rgba(255, 255, 255, 0.1);
   color: rgba(0, 35, 122, 0.7);
+}
+
+footer {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  bottom: 0;
+  width: 100%;
+  background-color: lightgray;
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 5px;
 }
