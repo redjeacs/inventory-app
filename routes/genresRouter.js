@@ -1,9 +1,8 @@
 const { Router } = require("express");
-
+const genresController = require("../controllers/genresController");
 const genresRouter = Router();
 
-genresRouter.get("/", (req, res) => {
-  res.render("genres", { title: "Gamestop Genres" });
-});
+genresRouter.get("/", genresController.getGenres);
+genresRouter.get("/new", genresController.genreCreateGet);
 
 module.exports = genresRouter;
