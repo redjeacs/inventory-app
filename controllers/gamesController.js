@@ -5,6 +5,7 @@ const validateGame = [];
 
 exports.getGames = async (req, res) => {
   const data = await db.getGames();
+  console.log(data);
   res.render("games", { title: "GameWarehouse Games", games: data });
 };
 

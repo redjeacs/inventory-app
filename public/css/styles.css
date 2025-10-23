@@ -19,6 +19,8 @@ html {
   width: 100vw;
 }
 
+/* Nav */
+
 nav {
   max-width: 960px;
   mask-image: linear-gradient(
@@ -66,6 +68,8 @@ nav ul li a:hover {
   color: rgba(0, 35, 122, 0.7);
 }
 
+/* Footer */
+
 footer {
   position: fixed;
   display: flex;
@@ -76,4 +80,65 @@ footer {
   font-size: 1rem;
   font-weight: bold;
   padding: 5px;
+}
+
+/* Game Containers */
+
+.main-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80%;
+  gap: 1rem;
+}
+
+.content-header {
+  display: flex;
+  align-items: center;
+  text-align: start;
+  gap: 1rem;
+  width: 100%;
+}
+
+.games-grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 300px);
+  gap: 1rem;
+}
+
+.game-container {
+  max-width: 300px;
+}
+
+.img {
+  max-width: 100%;
+  display: block;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  object-fit: cover;
+  object-position: center;
+}
+
+button {
+  outline: 0;
+  border: 0;
+  background: none;
+  border: 1px solid #d9d9d9;
+  padding: 8px 0px;
+  color: #515151;
+  text-transform: uppercase;
+  width: 125px;
+  font-family: inherit;
+  transition: all 0.3s ease;
+  font-weight: 500;
+
+  &:hover {
+    border: 1px solid #aedaa6;
+    color: #aedaa6;
+    cursor: pointer;
+  }
 }

@@ -10,8 +10,14 @@
     <%- include('partials/navbar') %>
     <div class="container">
       <div class="main-content">
-        <h1>Genres</h1>
-        <a href="/genres/new">new</a>
+        <h1>Genres <a href="/genres/new">Add a Genre</a></h1>
+        <% if(genres) { genres.forEach((genre) =>{ %>
+        <div class="genre-container">
+          <p><%= genre.genre %></p>
+          <button>Delete</button>
+          <button>View Games</button>
+        </div>
+        <% })} %>
       </div>
     </div>
     <%- include('partials/footer') %>
