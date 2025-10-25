@@ -2,6 +2,8 @@ require("dotenv").config();
 const { Client } = require("pg");
 
 const SQL = `
+DROP TABLE IF EXISTS genres, inventory;
+
 CREATE TABLE IF NOT EXISTS genres (
   id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY, 
   genre VARCHAR(50) UNIQUE

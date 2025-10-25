@@ -19,3 +19,5 @@ exports.getGameById = async (req, res) => {
 exports.gameCreateGet = async (req, res) => {
   res.render("newGame");
 };
+
+exports.gameCreatePost = async (req, res) => {};

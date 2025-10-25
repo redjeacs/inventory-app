@@ -11,6 +11,7 @@
     <div class="container">
       <div class="main-content">
         <h1>Add a New Genre</h1>
+        <%- include('partials/errors.ejs') %>
         <form action="/genres/new" method="post">
           <label for="genre"
             >Genre: <input type="text" id="genre" name="genre" required
