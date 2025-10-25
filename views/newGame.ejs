@@ -3,11 +3,46 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/styles.css" />
     <title>GameWarehouse New Game</title>
   </head>
   <body>
-    <form action="/games/new" method="post">
-      <div>game form</div>
-    </form>
+    <%- include('partials/navbar') %>
+    <div class="container">
+      <div class="main-content">
+        <h1>Add a New Game</h1>
+        <form action="/games/new" method="POST">
+          <label for="game"
+            >Game: <input type="text" name="game" id="game" requried
+          /></label>
+          <label for="genre"
+            >Genre:
+            <select name="genre" id="genre"></select
+          ></label>
+          <label for="release_date"
+            >Release Date:
+            <input type="date" name="release_date" id="release_date"
+          /></label>
+          <label for="price"
+            >Price: <input type="number" name="price" id="price"
+          /></label>
+          <label for="description"
+            >Description:
+            <textarea name="description" id="description" cols="2"></textarea>
+          </label>
+          <label for="img_src"
+            >Upload Image:
+            <input
+              type="file"
+              name="img_src"
+              id="img_src"
+              accept="image/png, image/jpeg, image/svg+xml"
+            />
+          </label>
+          <button>Submit</button>
+        </form>
+      </div>
+    </div>
+    <%- include('partials/footer') %>
   </body>
 </html>
