@@ -11,7 +11,7 @@
     <div class="container">
       <div class="main-content">
         <h1 class="content-header">
-          Games <a href="/games/new"><button>Add a Game</button></a>
+          Games <a href="/games/new">Add a Game</a>
         </h1>
         <div class="games-grid">
           <% if(games) { games.forEach((game) =>{ %>
@@ -19,12 +19,14 @@
             <div class="img">
               <img src="<%= game.img_src %>" alt="game image" />
             </div>
-            <h2><%= game.game %></h2>
-            <h4><%= game.release_date %></h4>
-            <h1><%= game.price %></h1>
-            <p><%= game.description %></p>
-            <button>Delete</button>
-            <button>View Games</button>
+            <div class="text">
+              <h2><%= game.game %></h2>
+              <h4><%= game.release_date %></h4>
+              <h1><%= game.price %></h1>
+              <p><%= game.description %></p>
+              <button>Delete</button>
+              <button>View Games</button>
+            </div>
           </div>
           <% })} %>
         </div>
