@@ -11,24 +11,49 @@
     <div class="container">
       <div class="main-content">
         <h1>Add a New Game</h1>
+        <%- include('partials/errors.ejs') %>
         <form action="/games/new" method="POST">
           <label for="game"
-            >Game: <input type="text" name="game" id="game" requried
+            >Game:
+            <input
+              type="text"
+              name="game"
+              id="game"
+              value="<%= (typeof formData !== 'undefined' && formData.game) ? formData.game : '' %>"
+              required
           /></label>
           <label for="genre"
             >Genre:
-            <select name="genre" id="genre"></select
-          ></label>
+            <select name="genre" id="genre">
+              <% genres.forEach(genre => { %>
+              <option><%= genre.genre %></option>
+              <% }) %>
+            </select></label
+          >
           <label for="release_date"
             >Release Date:
-            <input type="date" name="release_date" id="release_date"
+            <input
+              type="date"
+              name="release_date"
+              id="release_date"
+              value="<%= (typeof formData !== 'undefined' && formData.release_date) ? formData.release_date : '' %>"
+              required
           /></label>
           <label for="price"
-            >Price: <input type="number" name="price" id="price"
+            >Price:
+            <input
+              type="number"
+              name="price"
+              id="price"
+              step="any"
+              value="<%= (typeof formData !== 'undefined' && formData.price) ? formData.price : '' %>"
+              required
           /></label>
           <label for="description"
             >Description:
-            <textarea name="description" id="description" cols="2"></textarea>
+            <textarea name="description" id="description" cols="2">
+              <%= (typeof formData !== 'undefined' && formData.description) ? formData.description : '' %>
+            </textarea>
           </label>
           <label for="img_src"
             >Upload Image:

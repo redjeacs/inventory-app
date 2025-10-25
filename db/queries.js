@@ -1,3 +1,4 @@
+const CustomNotFoundError = require("../errors/CustomNotFoundError");
 const pool = require("./pool");
 
 exports.getGames = async () => {
@@ -12,12 +13,21 @@ exports.getGameById = async (gameId) => {
   return result.rows[0];
 };
 
+async function getGenreIdByName(genre) {
+  const result = await pool.query("SELECT id FROM genres WHERE genre = $1", [
+    genre,
+  ]);
+  return result.rows[0].id;
+}
+
 exports.createGame = async (gameDetails) => {
+  const genreId = await getGenreIdByName(gameDetails.genre);
+  if (!genreId) throw CustomNotFoundError("Invalid genre");
   await pool.query(
-    "INSERT INTO inventory (game, genre_id, release_date, price, img_src, description) VALUES ($1, $2, $3, $4, $5, $6))",
+    "INSERT INTO inventory (game, genre_id, release_date, price, img_src, description) VALUES ($1, $2, $3, $4, $5, $6)",
     [
       gameDetails.game,
-      gameDetails.genre_id,
+      genreId,
       gameDetails.release_date,
       gameDetails.price,
       gameDetails.img_src,

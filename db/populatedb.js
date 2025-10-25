@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS inventory (
   genre_id INTEGER, 
   release_date DATE, 
   price DECIMAL(10, 2), 
-  img_src TEXT DEFAULT '/images/game-default.svg', 
+  img_src TEXT DEFAULT '/assets/game-default.jpg', 
   description VARCHAR(200)
 );
 

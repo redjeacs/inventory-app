@@ -29,9 +29,8 @@ exports.genreCreatePost = [
     }
     try {
       const data = matchedData(req);
-      console.log(data);
       if (!data.genre)
-        throw new CustomNotFoundError("Provided Genre is invalid!");
+        throw new CustomNotFoundError("Provided genre is invalid!");
       await db.createGenre(data);
       res.redirect("/genres");
     } catch (error) {
