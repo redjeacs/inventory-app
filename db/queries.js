@@ -8,7 +8,9 @@ exports.getGames = async () => {
 
 exports.getGameById = async (gameId) => {
   const result = await pool.query(
-    `SELECT * FROM inventory WHERE id = ${gameId}`
+    `SELECT * FROM inventory i 
+      JOIN genres g ON genre_id = g.id 
+      WHERE i.id = ${gameId}`
   );
   return result.rows[0];
 };

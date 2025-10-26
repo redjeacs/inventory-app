@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/styles.css" />
+    <link rel="stylesheet" href="/css/game.css" />
+    <title>GameWarehouse <%= data.game %></title>
+  </head>
+  <body>
+    <%- include('partials/navbar') %>
+    <div class="container">
+      <div class="main-content">
+        <h1 class="content-header"><%= data.game %> <a href="/games" class="link"><button>Back to Games</button></a></h1>
+        <div class="game-container">
+          <div class="img"><img src="<%= data.img_src %>" alt="game image"></div>
+          <div class="info">
+            <div><%= data.genre %></div>
+            <div><%= data.release_date %></div>
+            <div><%= data.description %></div>
+            <div><%= data.price %></div>
+          </div>
+        </div>
+        </div>
+      </div>
+    </div>
+    <%- include('partials/footer') %>
+  </body>
+</html>

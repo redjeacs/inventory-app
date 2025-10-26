@@ -38,7 +38,7 @@ exports.getGames = async (req, res) => {
 exports.getGameById = async (req, res) => {
   const gameId = parseInt(req.params.id);
   const data = await db.getGameById(gameId);
-  res.render("game", { game: data });
+  res.render("game", { data: data });
 };
 
 exports.gameCreateGet = async (req, res) => {
