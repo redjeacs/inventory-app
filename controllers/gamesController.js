@@ -92,3 +92,10 @@ exports.gameCreatePost = [
     }
   },
 ];
+
+exports.gameDelete = async (req, res) => {
+  const gameId = req.params.id;
+  console.log(gameId);
+  await db.deleteGame(gameId);
+  res.redirect("/games");
+};
