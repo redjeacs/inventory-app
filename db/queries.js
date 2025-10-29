@@ -1,8 +1,33 @@
 const CustomNotFoundError = require("../errors/CustomNotFoundError");
 const pool = require("./pool");
 
-exports.getGames = async () => {
-  const result = await pool.query("SELECT * FROM inventory");
+const filterGames = async (query) => {
+  let sortQuerySQL = "";
+  if (query.sort && query.sort.length > 0) {
+    const [column, direction] = query.sort
+      .replace(/([a-z])([A-Z])/g, "$1 $2")
+      .toLowerCase()
+      .split(" ");
+
+    sortQuerySQL = `ORDER BY ${column} ${direction}`;
+  }
+  let genreQuerySQL = "";
+  if (query.genre && query.genre.length > 0) {
+    genreQuerySQL = `WHERE genre IN ('${query.genre}')`;
+  }
+
+  return `${genreQuerySQL} ${sortQuerySQL}`;
+};
+
+exports.getGames = async (query = null) => {
+  let queries = "";
+  if (query) {
+    queries = await filterGames(query);
+  }
+
+  const result = await pool.query(
+    `SELECT inventory.* FROM inventory JOIN genres ON genre_id = genres.id ${queries}`
+  );
   return result.rows;
 };
 
@@ -38,8 +63,28 @@ exports.createGame = async (gameDetails) => {
   );
 };
 
-exports.updateGame = async (gameId) => {
-  await pool.query("");
+exports.updateGame = async (gameDetails, id) => {
+  const genreId = await getGenreIdByName(gameDetails.genre);
+
+  await pool.query(
+    `UPDATE inventory SET 
+    game = $1, 
+    genre_id = $2, 
+    release_date = $3, 
+    price = $4, 
+    img_src = $5, 
+    description = $6
+    WHERE id = ${id}
+    `,
+    [
+      gameDetails.game,
+      genreId,
+      gameDetails.release_date,
+      gameDetails.price,
+      gameDetails.img_src,
+      gameDetails.description,
+    ]
+  );
 };
 
 exports.deleteGame = async (gameId) => {

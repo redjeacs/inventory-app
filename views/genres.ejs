@@ -15,7 +15,9 @@
         <div class="genre-container">
           <p><%= genre.genre %></p>
           <button>Delete</button>
-          <button>View Games</button>
+          <a href="/games?genre=<%= genre.genre %>"
+            ><button>View Games</button></a
+          >
         </div>
         <% })} %>
       </div>

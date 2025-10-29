@@ -25,6 +25,9 @@ img {
 }
 
 .text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
   padding: 0.5rem 1rem;
 }
 
@@ -46,4 +49,21 @@ button {
     color: #aedaa6;
     cursor: pointer;
   }
+}
+
+.buttons {
+  display: flex;
+  padding: 0.5rem 1rem;
+  gap: 1rem;
+}
+
+/* Empty Genre */
+
+.empty-genre {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  grid-column: 1 / -1;
 }

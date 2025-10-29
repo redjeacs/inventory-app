@@ -15,23 +15,32 @@
           Games <a href="/games/new">Add a Game</a>
         </h1>
         <div class="games-grid">
-          <% if(games) { games.forEach((game) =>{ %>
+          <% if(games.length !== 0) { games.forEach((game) =>{ %>
           <div class="game-container">
-            <div class="img">
-              <img src="<%= game.img_src %>" alt="game image" />
-            </div>
-            <div class="text">
-              <h2><%= game.game %></h2>
-              <h4><%= game.release_date %></h4>
-              <h1><%= game.price %></h1>
-              <p><%= game.description %></p>
-              <form method="post" action="/games/delete/<%= game.id %>">
-                <button type="submit">Delete</button>
-                <button><a href="/games/<%= game.id %>">View Game</a></button>
-              </form>
-            </div>
+            <a href="/games/<%= game.id %>">
+              <div class="img">
+                <img src="<%= game.img_src %>" alt="game image" />
+              </div>
+              <div class="text">
+                <h2><%= game.game %></h2>
+                <h4><%= game.release_date %></h4>
+                <h1><%= game.price %></h1>
+                <p><%= game.description %></p>
+              </div>
+              <div class="buttons">
+                <form method="post" action="/games/delete/<%= game.id %>">
+                  <button type="submit">Delete</button>
+                </form>
+                <button><a href="/games/edit/<%= game.id %>">Edit</a></button>
+              </div>
+            </a>
           </div>
-          <% })} %>
+          <% })} else {%>
+          <div class="empty-genre">
+            <h3>There are no games in this genre yet!</h3>
+            <a href="/games/new"><button>Would you like to Add One?</button></a>
+          </div>
+          <% } %>
         </div>
       </div>
     </div>

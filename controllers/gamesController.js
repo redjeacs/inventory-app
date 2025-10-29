@@ -31,10 +31,17 @@ const validateGame = [
 ];
 
 exports.getGames = async (req, res) => {
+  const checkQuery = JSON.stringify(req.query) === "{}";
+
+  if (!checkQuery) {
+    const data = await db.getGames(req.query);
+    res.render("games", { title: "GameWarehouse Games", games: data });
+    return;
+  }
+
   const data = await db.getGames();
   res.render("games", { title: "GameWarehouse Games", games: data });
 };
-
 exports.getGameById = async (req, res) => {
   const gameId = parseInt(req.params.id);
   const data = await db.getGameById(gameId);
@@ -44,6 +51,13 @@ exports.getGameById = async (req, res) => {
 exports.gameCreateGet = async (req, res) => {
   const genres = await db.getGenres();
   res.render("newGame", { genres: genres });
+};
+
+exports.gameEditGet = async (req, res) => {
+  const gameId = req.params.id;
+  const data = await db.getGameById(gameId);
+  const genres = await db.getGenres();
+  res.render("editGame", { genres: genres, formData: data, id: gameId });
 };
 
 exports.gameCreatePost = [
@@ -93,9 +107,59 @@ exports.gameCreatePost = [
   },
 ];
 
+exports.gameEditPost = [
+  validateGame,
+  async (req, res) => {
+    const genres = await db.getGenres();
+    const gameId = req.params.id;
+    const formData = req.body;
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).render("editGame", {
+        genres: genres,
+        errors: errors.array(),
+        formData: formData,
+        id: gameId,
+      });
+    }
+    try {
+      const data = matchedData(req);
+      if (!data)
+        throw new CustomNotFoundError("Provided Game Details is invalid!");
+      if (!data.img_src || data.img_src.trim() === "") {
+        data.img_src = "/assets/game-default.jpg";
+      }
+      await db.updateGame(data, gameId);
+      res.redirect("/games");
+    } catch (error) {
+      // Check for Postgres unique constraint violation
+      if (error.code === "23505") {
+        // Postgres unique violation code
+        return res.status(400).render("editGame", {
+          genres: genres,
+          errors: [{ msg: "This game already exists" }],
+          formData: formData,
+          id: gameId,
+        });
+      }
+      // Handle other errors
+      console.error(error);
+      return res.status(500).render("editGame", {
+        genres: genres,
+        errors: [
+          {
+            msg: "An error occurred while creating the game",
+            formData: formData,
+          },
+        ],
+        id: gameId,
+      });
+    }
+  },
+];
+
 exports.gameDelete = async (req, res) => {
   const gameId = req.params.id;
-  console.log(gameId);
   await db.deleteGame(gameId);
   res.redirect("/games");
 };

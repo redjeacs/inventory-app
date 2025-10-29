@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/styles.css" />
+    <link rel="stylesheet" href="/css/form.css" />
+    <title>GameWarehouse Edit Game</title>
+  </head>
+  <body>
+    <%- include('partials/navbar') %>
+    <div class="container">
+      <div class="main-content">
+        <h1>Edit Game</h1>
+        <%- include('partials/errors.ejs') %>
+        <form action="/games/edit/<%= id %>" method="post">
+          <label for="game"
+            >Game:
+            <input
+              type="text"
+              name="game"
+              id="game"
+              value="<%= (typeof formData !== 'undefined' && formData.game) ? formData.game : '' %>"
+              required
+          /></label>
+          <label for="genre"
+            >Genre:
+            <select name="genre" id="genre">
+              <% genres.forEach(genre => { %>
+              <option><%= genre.genre %></option>
+              <% }) %>
+            </select></label
+          >
+          <label for="release_date"
+            >Release Date:
+            <input
+              type="date"
+              name="release_date"
+              id="release_date"
+              value="<%= (typeof formData !== 'undefined' && formData.release_date) ? formData.release_date : '' %>"
+              required
+          /></label>
+          <label for="price"
+            >Price:
+            <input
+              type="number"
+              name="price"
+              id="price"
+              step="any"
+              value="<%= (typeof formData !== 'undefined' && formData.price) ? formData.price : '' %>"
+              required
+          /></label>
+          <label for="description"
+            >Description:
+            <textarea name="description" id="description" cols="2">
+              <%= (typeof formData !== 'undefined' && formData.description) ? formData.description : '' %>
+            </textarea>
+          </label>
+          <label for="img_src"
+            >Upload Image:
+            <input
+              type="file"
+              name="img_src"
+              id="img_src"
+              accept="image/png, image/jpeg, image/svg+xml"
+            />
+          </label>
+          <button>Submit</button>
+        </form>
+      </div>
+    </div>
+    <%- include('partials/footer') %>
+  </body>
+</html>
