@@ -112,5 +112,22 @@ exports.updateGenre = async (genreId) => {
 };
 
 exports.deleteGenre = async (genreId) => {
+  let index = [];
+  const gamesInGenre = await pool.query(
+    `SELECT inventory.id FROM inventory JOIN genres ON genre_id = genres.id WHERE genre_id = ${genreId}`
+  );
+
+  const gamesId = gamesInGenre.rows.map((game) => game.id);
+
+  for (let i = 1; i <= gamesInGenre.rows.length; i++) {
+    index.push(`$${i}`);
+  }
+
+  const indexString = index.join(", ");
+
+  await pool.query(
+    `DELETE FROM inventory WHERE id IN (${indexString})`,
+    gamesId
+  );
   await pool.query(`DELETE FROM genres WHERE id = ${genreId}`);
 };

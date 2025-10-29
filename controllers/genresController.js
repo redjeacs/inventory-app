@@ -13,6 +13,7 @@ const validateGenre = [
 
 exports.getGenres = async (req, res) => {
   const data = await db.getGenres();
+  console.log(data);
   res.render("genres", { title: "Gamestop Genres", genres: data });
 };
 
@@ -49,3 +50,9 @@ exports.genreCreatePost = [
     }
   },
 ];
+
+exports.genreDelete = async (req, res) => {
+  const genreId = req.params.id;
+  await db.deleteGenre(genreId);
+  res.redirect("/games");
+};
